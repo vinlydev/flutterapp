@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/pages/HomeStack.dart';
+import 'package:flutterapp/pages/NewsStack.dart';
 import 'package:flutterapp/pages/ProductStack.dart';
 
 void main() {
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (context) => HomeStack(),
-        '/productstack': (context) => ProductStack()
+        '/productstack': (context) => ProductStack(),
+        '/newsstack': (context) => NewsStack()
         // '/about': (context) => AboutPage(),
         // '/contact': (context) => ContactPage(),
       },

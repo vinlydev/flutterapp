@@ -56,6 +56,19 @@ class _MenuState extends State<Menu> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.shopping_cart),
+              title: Text('ຂ່າວສານ'),
+              trailing: Icon(Icons.arrow_right),
+              selected: ModalRoute.of(context).settings.name == 'newsstack/news'
+                  ? true
+                  : false,
+              onTap: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pushNamedAndRemoveUntil(
+                        '/newsstack', (Route<dynamic> route) => false);
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.settings),
               title: Text('ຕັ້ງຄ່າ'),
             ),
