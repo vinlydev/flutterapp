@@ -29,6 +29,9 @@ class _DetailPageState extends State<DetailPage> {
       });
     } else {
       //error 400, 500
+      setState(() {
+        isLoading = false;
+      });
       print('error from backend ${response.statusCode}');
     }
   }
