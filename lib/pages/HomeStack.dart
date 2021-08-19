@@ -41,6 +41,10 @@ class _HomeStackState extends State<HomeStack> {
             builder = (BuildContext context) => RoomPage();
             break;
 
+          case 'homestack/room':
+            builder = (BuildContext context) => RoomPage();
+            break;
+
           default:
             throw Exception('Invalid route: ${settings.name}');
         }
