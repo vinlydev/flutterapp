@@ -56,6 +56,14 @@ class _NewsPageState extends State<NewsPage> {
             : ListView.separated(
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
+                      child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'newsstack/webview',
+                          arguments: {
+                            'url': articles[index]['urlToImage'],
+                            'name': articles[index]['source']['name']
+                          });
+                    },
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -121,7 +129,7 @@ class _NewsPageState extends State<NewsPage> {
                             ),
                           )
                         ]),
-                  );
+                  ));
                 },
                 separatorBuilder: (BuildContext context, int index) =>
                     Divider(),

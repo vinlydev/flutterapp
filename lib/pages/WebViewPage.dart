@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
   WebViewPage({Key key}) : super(key: key);
@@ -10,13 +11,15 @@ class WebViewPage extends StatefulWidget {
 class _WebViewPageState extends State<WebViewPage> {
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> news = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
-      appBar: AppBar(title: Text('ຂ່າວສານ')),
+      appBar: AppBar(title: Text('${news['name']}')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('ຂ່າວສານ'),
+            Text('${news['url']}'),
           ],
         ),
       ),
