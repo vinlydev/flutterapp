@@ -19,7 +19,7 @@ class _NewsPageState extends State<NewsPage> {
   _getData() async {
     try {
       var url = Uri.parse(
-          'https://newsapi.org/v2/top-headlines?country=us&apiKey=c436fd543d92483e9c281479d92671a0');
+          'https://newsapi.org/v2/top-headlines?country=th&apiKey=c436fd543d92483e9c281479d92671a0');
       var response = await http.get(url);
       if (response.statusCode == 200) {
         // print(response.body);
@@ -60,7 +60,7 @@ class _NewsPageState extends State<NewsPage> {
                     onTap: () {
                       Navigator.pushNamed(context, 'newsstack/webview',
                           arguments: {
-                            'url': articles[index]['urlToImage'],
+                            'url': articles[index]['url'],
                             'name': articles[index]['source']['name']
                           });
                     },
