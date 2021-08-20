@@ -24,7 +24,11 @@ class _NewsPageState extends State<NewsPage> {
   void _onRefresh() async {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use refreshFailed()
+    setState(() {
+      articles.clear();
+      page = 1;
+    });
+    _getData();
     _refreshController.refreshCompleted();
   }
 
@@ -32,12 +36,26 @@ class _NewsPageState extends State<NewsPage> {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
-    if (mounted) setState(() {});
-    _refreshController.loadComplete();
+
+    if (page < (totalResults / pageSize).ceil()) {
+      if (mounted) {
+        setState(() {
+          page = ++page;
+        });
+        _getData();
+        //_refreshController.loadComplete();
+      }
+    } else {
+      _refreshController.loadNoData();
+      _refreshController.resetNoData();
+    }
   }
 
   _getData() async {
     try {
+      setState(() {
+        page == 1 ? isLoading = true : isLoading = false;
+      });
       var url = Uri.parse(
           'https://newsapi.org/v2/top-headlines?country=th&apiKey=c436fd543d92483e9c281479d92671a0&page=$page&pageSize=$pageSize');
       var response = await http.get(url);
@@ -46,7 +64,7 @@ class _NewsPageState extends State<NewsPage> {
         final Map<String, dynamic> news = convert.jsonDecode(response.body);
         setState(() {
           totalResults = news['totalResults'];
-          articles = news['articles'];
+          articles.addAll(news['articles']);
           isLoading = false;
         });
       } else {
@@ -76,7 +94,11 @@ class _NewsPageState extends State<NewsPage> {
           : SmartRefresher(
               enablePullDown: true,
               enablePullUp: true,
-              header: WaterDropHeader(),
+              header: ClassicHeader(
+                refreshStyle: RefreshStyle.Follow,
+                refreshingText: 'ກຳລັງໂຫລດຂໍ້ມູນ....',
+                completeText: 'ໂຫລດຂໍ້ມູນສຳເລັດ',
+              ),
               footer: CustomFooter(
                 builder: (BuildContext context, LoadStatus mode) {
                   Widget body;
@@ -88,8 +110,8 @@ class _NewsPageState extends State<NewsPage> {
                     body = Text("Load Failed!Click retry!");
                   } else if (mode == LoadStatus.canLoading) {
                     body = Text("release to load more");
-                  } else {
-                    body = Text("No more Data");
+                  } else if (mode == LoadStatus.noMore) {
+                    body = Text("ບໍ່ມີຂໍ້ມູນແລ້ວ");
                   }
                   return Container(
                     height: 55.0,
