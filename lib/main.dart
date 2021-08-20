@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.blueAccent,
           canvasColor: Colors.blue[50],
           textTheme: TextTheme(
+            // ignore: deprecated_member_use
             headline: TextStyle(color: Colors.blue, fontSize: 30),
           )),
       // home: HomePage(),

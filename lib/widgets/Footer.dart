@@ -21,6 +21,7 @@ class _FooterState extends State<Footer> {
     return Column(
       children: <Widget>[
         Text('$companyName'),
+        // ignore: deprecated_member_use
         RaisedButton(
           onPressed: _changeCompanyName,
           child: Text('Click Me!!!'),

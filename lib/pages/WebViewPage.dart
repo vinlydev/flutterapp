@@ -14,10 +14,11 @@ class _WebViewPageState extends State<WebViewPage> {
     Map<String, dynamic> news = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-        appBar: AppBar(title: Text('${news['name']}')),
-        body: WebView(
-          initialUrl: '${news['url']}',
-          javascriptMode: JavascriptMode.unrestricted,
-        ));
+      appBar: AppBar(title: Text('${news['name']}')),
+      body: WebView(
+        initialUrl: '${news['url']}',
+        javascriptMode: JavascriptMode.unrestricted,
+      ),
+    );
   }
 }
