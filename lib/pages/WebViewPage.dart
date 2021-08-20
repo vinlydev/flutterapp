@@ -16,7 +16,6 @@ class _WebViewPageState extends State<WebViewPage> {
     return Scaffold(
       appBar: AppBar(title: Text('${news['name']}')),
       body: WebView(
-        // initialUrl: '${news['url']}',
         initialUrl: '${news['url']}',
         javascriptMode: JavascriptMode.unrestricted,
       ),
