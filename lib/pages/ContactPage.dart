@@ -17,6 +17,7 @@ class _ContactPageState extends State<ContactPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('ຕິດຕໍ່ເຮົາ'),
+            // ignore: deprecated_member_use
             RaisedButton(
               child: Text('ກັບໜ້າຫຼັກ'),
               onPressed: () {

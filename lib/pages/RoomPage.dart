@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 // import 'package:flutterapp/models/room.dart';
-import 'package:flutterapp/widgets/Logo.dart';
 import 'package:flutterapp/widgets/menu.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
