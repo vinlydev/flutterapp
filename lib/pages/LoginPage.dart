@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: <Widget>[
               Image(
-                image: AssetImage('assets/img/kg.png'),
+                image: AssetImage('assets/img/logo-vsv.png'),
                 height: 50,
               ),
               Padding(
