@@ -28,12 +28,18 @@ class _RegisterPageState extends State<RegisterPage> {
           'dob': values['dob'].toString().substring(0, 10)
         }));
     if (response.statusCode == 201) {
+      var feedback = convert.jsonDecode(response.body);
       Flushbar(
-        title: 'message',
-        message: "",
-        margin: EdgeInsets.all(8),
-        borderRadius: 8,
-      );
+        title: '${feedback['message']}',
+        message: "ສາມາດເຂົ້າລະບົບໄດ້ແລ້ວ",
+        icon: Icon(
+          Icons.info_outline,
+          size: 28.0,
+          color: Colors.blue[300],
+        ),
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.blue[300],
+      )..show(context);
     } else {
       print(response.body);
     }
