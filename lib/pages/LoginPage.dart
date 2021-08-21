@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Image(
                 image: AssetImage('assets/img/logovsv.png'),
-                fit: BoxFit.cover,
+                height: 100,
               ),
               Padding(
                 padding: EdgeInsets.all(10),
@@ -37,15 +37,15 @@ class _LoginPageState extends State<LoginPage> {
                     'email': '',
                     'password': '',
                   },
-                  autovalidateMode: AutovalidateMode.always,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     children: <Widget>[
                       FormBuilderTextField(
-                        name: 'email',
+                        name: "email",
                         maxLines: 1,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                            labelText: 'Email',
+                            labelText: "Email",
                             labelStyle: TextStyle(color: Colors.black87),
                             fillColor: Colors.white30,
                             filled: true,
@@ -62,11 +62,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       SizedBox(height: 20),
                       FormBuilderTextField(
-                        name: 'password',
+                        name: "password",
                         maxLines: 1,
+                        obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
                         decoration: InputDecoration(
-                            labelText: 'Password',
+                            labelText: "Password",
                             labelStyle: TextStyle(color: Colors.black87),
                             fillColor: Colors.white30,
                             filled: true,
@@ -78,9 +79,55 @@ class _LoginPageState extends State<LoginPage> {
                           FormBuilderValidators.required(context,
                               errorText: 'ກະລຸນາໃສ່ລະະຫັດຜ່ານ'),
                           FormBuilderValidators.minLength(context, 3,
-                              errorText: 'ກະລຸນາກວດລະຫັດຜ່ານຄືນ')
+                              errorText: 'ກະລຸນາກວດລະຫັດຜ່ານ 3 ຕົວຂຶ້ນໄປ')
                         ]),
                       ),
+                      SizedBox(height: 20),
+                      SizedBox(
+                          width: 200,
+                          // ignore: deprecated_member_use
+                          child: RaisedButton(
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                print(_formKey.currentState.value);
+                              } else {
+                                setState(() {
+                                  autovalidateMode:
+                                  AutovalidateMode.onUserInteraction;
+                                });
+                              }
+                            },
+                            child: Text('ເຂົ້າລະບົບ',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.blueGrey)),
+                            padding: EdgeInsets.all(30),
+                            color: Colors.tealAccent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                          )),
+                      SizedBox(height: 20),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Expanded(
+                              child: MaterialButton(
+                                child: Text('ລົງທະບຽນ',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        decoration: TextDecoration.underline)),
+                                onPressed: () {},
+                              ),
+                            ),
+                            Expanded(
+                              child: MaterialButton(
+                                child: Text('ລືມລະຫັດຜ່ານ',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        decoration: TextDecoration.underline)),
+                                onPressed: () {},
+                              ),
+                            )
+                          ])
                     ],
                   ),
                 ),
