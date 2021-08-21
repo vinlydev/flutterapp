@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                                 print(_formKey.currentState.value);
                               } else {
                                 setState(() {
-                                  autovalidateMode:
+                                  // ignore: unnecessary_statements
                                   AutovalidateMode.onUserInteraction;
                                 });
                               }

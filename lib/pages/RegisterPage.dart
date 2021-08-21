@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -28,8 +27,13 @@ class _RegisterPageState extends State<RegisterPage> {
           'password': values['password'],
           'dob': values['dob'].toString().substring(0, 10)
         }));
-    if (response == 201) {
-      print(response.body);
+    if (response.statusCode == 201) {
+      Flushbar(
+        title: 'message',
+        message: "",
+        margin: EdgeInsets.all(8),
+        borderRadius: 8,
+      );
     } else {
       print(response.body);
     }
@@ -147,12 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   if (_formKey.currentState.validate()) {
                                     // print(_formKey.currentState.value);
                                     _register(_formKey.currentState.value);
-                                  } else {
-                                    setState(() {
-                                      autovalidateMode:
-                                      AutovalidateMode.onUserInteraction;
-                                    });
-                                  }
+                                  } else {}
                                 },
                                 child: Text('ລົງທະບຽນ',
                                     style: TextStyle(
