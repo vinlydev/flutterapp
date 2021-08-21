@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/pages/LoginPage.dart';
 import 'package:flutterapp/pages/NewsStack.dart';
 import 'package:flutterapp/pages/ProductStack.dart';
+import 'package:flutterapp/pages/RegisterPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         // '/': (context) => HomeStack(),
         '/': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
         '/productstack': (context) => ProductStack(),
         '/newsstack': (context) => NewsStack()
         // '/about': (context) => AboutPage(),
