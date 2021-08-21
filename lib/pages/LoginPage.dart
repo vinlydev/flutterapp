@@ -43,17 +43,42 @@ class _LoginPageState extends State<LoginPage> {
                       FormBuilderTextField(
                         name: 'email',
                         maxLines: 1,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                             labelText: 'Email',
                             labelStyle: TextStyle(color: Colors.black87),
                             fillColor: Colors.white30,
                             filled: true,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
                             errorStyle: TextStyle(color: Colors.white)),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(context,
                               errorText: 'ກະລຸນາໃສ່ອີເມວ'),
                           FormBuilderValidators.email(context,
                               errorText: 'ກະລຸນາກວດເບິ່ງອີເມວຄືນ')
+                        ]),
+                      ),
+                      SizedBox(height: 20),
+                      FormBuilderTextField(
+                        name: 'password',
+                        maxLines: 1,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(color: Colors.black87),
+                            fillColor: Colors.white30,
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            errorStyle: TextStyle(color: Colors.white)),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(context,
+                              errorText: 'ກະລຸນາໃສ່ລະະຫັດຜ່ານ'),
+                          FormBuilderValidators.minLength(context, 3,
+                              errorText: 'ກະລຸນາກວດລະຫັດຜ່ານຄືນ')
                         ]),
                       ),
                     ],
