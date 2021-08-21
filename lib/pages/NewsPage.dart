@@ -4,7 +4,6 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class NewsPage extends StatefulWidget {
   NewsPage({Key key}) : super(key: key);
