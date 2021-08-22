@@ -1,6 +1,7 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert' as convert;
@@ -15,8 +16,12 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormBuilderState>();
+  bool isLoading = false;
 
   _register(Map<String, dynamic> values) async {
+    setState(() {
+      isLoading = true;
+    });
     // print(values);
     var url = Uri.parse('https://api.codingthailand.com/api/register');
     // var abody =
@@ -30,6 +35,9 @@ class _RegisterPageState extends State<RegisterPage> {
         }));
     // print(convert.jsonDecode(abody));
     if (response.statusCode == 201) {
+      setState(() {
+        isLoading = false;
+      });
       var feedback = convert.jsonDecode(response.body);
       Flushbar(
         title: '${feedback['message']}',
@@ -39,12 +47,31 @@ class _RegisterPageState extends State<RegisterPage> {
           size: 28.0,
           color: Colors.blue[300],
         ),
-        duration: Duration(seconds: 5),
-        leftBarIndicatorColor: Colors.black87,
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.blue[300],
       )..show(context);
-      print(response.body);
+
+      //back to login
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.pop(context);
+      });
     } else {
-      print(response.body);
+      setState(() {
+        isLoading = false;
+      });
+      var feedback = convert.jsonDecode(response.body);
+      Flushbar(
+        title: '${feedback['errors']['email'][0]}',
+        message: "ເກີດຂໍ້ຜິດພາດຈາກລະບົບ",
+        backgroundColor: Colors.redAccent,
+        icon: Icon(
+          Icons.error,
+          size: 28.0,
+          color: Colors.red[300],
+        ),
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.blue[300],
+      )..show(context);
     }
   }
 
@@ -167,9 +194,17 @@ class _RegisterPageState extends State<RegisterPage> {
                                     // print(_formKey.currentState.value);
                                   }
                                 },
-                                child: Text('ລົງທະບຽນ',
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.blueGrey)),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      isLoading == true
+                                          ? CircularProgressIndicator()
+                                          : Text(''),
+                                      Text('ລົງທະບຽນ',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.blueGrey)),
+                                    ]),
                                 padding: EdgeInsets.all(30),
                                 color: Colors.tealAccent,
                                 shape: RoundedRectangleBorder(
