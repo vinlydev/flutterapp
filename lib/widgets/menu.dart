@@ -38,7 +38,7 @@ class _MenuState extends State<Menu> {
               onTap: () {
                 Navigator.of(context, rootNavigator: true)
                     .pushNamedAndRemoveUntil(
-                        '/', (Route<dynamic> route) => false);
+                        '/homestack', (Route<dynamic> route) => false);
               },
             ),
             ListTile(
