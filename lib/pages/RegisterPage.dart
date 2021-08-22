@@ -17,33 +17,34 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   _register(Map<String, dynamic> values) async {
-    print(values);
+    // print(values);
     var url = Uri.parse('https://api.codingthailand.com/api/register');
-    var abody = convert.jsonEncode({
-      'name': values['name'],
-      'email': values['email'],
-      'password': values['password'],
-      'dob': values['dob']
-    });
+    // var abody =
     var response = await http.post(url,
-        headers: {'Content-Type': 'application/json'}, body: abody);
-    print(convert.jsonDecode(abody));
+        headers: {'Content-Type': 'application/json'},
+        body: convert.jsonEncode({
+          'name': values['name'],
+          'email': values['email'],
+          'password': values['password'],
+          'dob': values['dob'].toString().substring(0, 10)
+        }));
+    // print(convert.jsonDecode(abody));
     if (response.statusCode == 201) {
-      // var feedback = convert.jsonDecode(response.body);
-      // Flushbar(
-      //   title: '${feedback['message']}',
-      //   message: "ລົງທະບຽນສຳເລັດ",
-      //   icon: Icon(
-      //     Icons.info_outline,
-      //     size: 28.0,
-      //     color: Colors.blue[300],
-      //   ),
-      //   duration: Duration(seconds: 3),
-      //   leftBarIndicatorColor: Colors.black87,
-      // )..show(context);
-      // print(response.body);
+      var feedback = convert.jsonDecode(response.body);
+      Flushbar(
+        title: '${feedback['message']}',
+        message: "ລົງທະບຽນສຳເລັດ",
+        icon: Icon(
+          Icons.info_outline,
+          size: 28.0,
+          color: Colors.blue[300],
+        ),
+        duration: Duration(seconds: 5),
+        leftBarIndicatorColor: Colors.black87,
+      )..show(context);
+      print(response.body);
     } else {
-      // print(response.body);
+      print(response.body);
     }
   }
 
@@ -157,13 +158,13 @@ class _RegisterPageState extends State<RegisterPage> {
                               child: RaisedButton(
                                 onPressed: () {
                                   _formKey.currentState.save();
-                                  print(_formKey.currentState.value);
+                                  // print(_formKey.currentState.value);
                                   if (_formKey.currentState.validate()) {
-                                    print(_formKey.currentState.value);
+                                    // print(_formKey.currentState.value);
                                     _register(_formKey.currentState.value);
                                   } else {
                                     print("validation failed");
-                                    print(_formKey.currentState.value);
+                                    // print(_formKey.currentState.value);
                                   }
                                 },
                                 child: Text('ລົງທະບຽນ',
