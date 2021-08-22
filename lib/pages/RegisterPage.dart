@@ -17,31 +17,33 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   _register(Map<String, dynamic> values) async {
-    // print(values);
+    print(values);
     var url = Uri.parse('https://api.codingthailand.com/api/register');
+    var abody = convert.jsonEncode({
+      'name': values['name'],
+      'email': values['email'],
+      'password': values['password'],
+      'dob': values['dob']
+    });
     var response = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
-        body: convert.jsonEncode({
-          'name': values['name'],
-          'email': values['email'],
-          'password': values['password'],
-          'dob': values['dob'].toString().substring(0, 10)
-        }));
+        headers: {'Content-Type': 'application/json'}, body: abody);
+    print(convert.jsonDecode(abody));
     if (response.statusCode == 201) {
-      var feedback = convert.jsonDecode(response.body);
-      Flushbar(
-        title: '${feedback['message']}',
-        message: "ສາມາດເຂົ້າລະບົບໄດ້ແລ້ວ",
-        icon: Icon(
-          Icons.info_outline,
-          size: 28.0,
-          color: Colors.blue[300],
-        ),
-        duration: Duration(seconds: 3),
-        leftBarIndicatorColor: Colors.blue[300],
-      )..show(context);
+      // var feedback = convert.jsonDecode(response.body);
+      // Flushbar(
+      //   title: '${feedback['message']}',
+      //   message: "ລົງທະບຽນສຳເລັດ",
+      //   icon: Icon(
+      //     Icons.info_outline,
+      //     size: 28.0,
+      //     color: Colors.blue[300],
+      //   ),
+      //   duration: Duration(seconds: 3),
+      //   leftBarIndicatorColor: Colors.black87,
+      // )..show(context);
+      // print(response.body);
     } else {
-      print(response.body);
+      // print(response.body);
     }
   }
 
@@ -67,7 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         'name': '',
                         'email': '',
                         'password': '',
-                        // 'dob': DateTime.now(),
+                        //'dob': DateTime.now(),
                       },
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(
@@ -75,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           FormBuilderTextField(
                             name: "name",
                             maxLines: 1,
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                                 labelText: "ຊື່ ແລະ ນາມສະກຸນ",
                                 labelStyle: TextStyle(color: Colors.black87),
@@ -154,10 +156,15 @@ class _RegisterPageState extends State<RegisterPage> {
                               // ignore: deprecated_member_use
                               child: RaisedButton(
                                 onPressed: () {
+                                  _formKey.currentState.save();
+                                  print(_formKey.currentState.value);
                                   if (_formKey.currentState.validate()) {
-                                    // print(_formKey.currentState.value);
+                                    print(_formKey.currentState.value);
                                     _register(_formKey.currentState.value);
-                                  } else {}
+                                  } else {
+                                    print("validation failed");
+                                    print(_formKey.currentState.value);
+                                  }
                                 },
                                 child: Text('ລົງທະບຽນ',
                                     style: TextStyle(
