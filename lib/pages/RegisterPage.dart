@@ -184,7 +184,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               // ignore: deprecated_member_use
                               child: RaisedButton(
                                 onPressed: () {
-                                  _formKey.currentState.save();
+                                  _formKey.currentState.saveAndValidate();
                                   // print(_formKey.currentState.value);
                                   if (_formKey.currentState.validate()) {
                                     // print(_formKey.currentState.value);

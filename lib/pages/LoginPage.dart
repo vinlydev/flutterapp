@@ -1,6 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
+import 'package:flushbar/flushbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -11,6 +15,86 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormBuilderState>();
+  bool isLoading = false;
+  SharedPreferences prefs;
+
+  _initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initPrefs();
+  }
+
+  _login(Map<String, dynamic> values) async {
+    setState(() {
+      isLoading = true;
+    });
+    // print(values);
+    var url = Uri.parse('https://api.codingthailand.com/api/login');
+    // var abody =
+    var response = await http.post(url,
+        headers: {'Content-Type': 'application/json'},
+        body: convert.jsonEncode({
+          'email': values['email'],
+          'password': values['password'],
+        }));
+    // print(convert.jsonDecode(abody));
+    if (response.statusCode == 200) {
+      setState(() {
+        isLoading = false;
+      });
+      // var token = convert.jsonDecode(response.body);
+      // print(response.body);
+
+      //save token to prefe
+      await prefs.setString('token', response.body);
+
+      //get profile
+      await _getProfile();
+
+      //go to homepage
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/homestack', (Route<dynamic> route) => false);
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      var feedback = convert.jsonDecode(response.body);
+      Flushbar(
+        title: '${feedback['message']}',
+        message: "ເກີດຂໍ້ຜິດພາດຈາກລະບົບ ${feedback['status_code']}",
+        backgroundColor: Colors.redAccent,
+        icon: Icon(
+          Icons.error,
+          size: 28.0,
+          color: Colors.red[300],
+        ),
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.blue[300],
+      )..show(context);
+    }
+  }
+
+  Future<void> _getProfile() async {
+    //get token from prefs
+    var tokenString = prefs.getString('token');
+    var token = convert.jsonDecode(tokenString);
+    print(token['access_token']);
+
+    //http get profile
+    var url = Uri.parse('https://api.codingthailand.com/api/profile');
+    var response = await http.get(url,
+        headers: {'Authorization': 'Bearer ${token['access_token']}'});
+    print(response.body);
+
+    //save user profile to prefs
+    var profile = convert.jsonDecode(response.body);
+    await prefs.setString(
+        'profile', convert.jsonEncode(profile['data']['user']));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,13 +173,14 @@ class _LoginPageState extends State<LoginPage> {
                           // ignore: deprecated_member_use
                           child: RaisedButton(
                             onPressed: () {
+                              _formKey.currentState.saveAndValidate();
+                              // print(_formKey.currentState.value);
                               if (_formKey.currentState.validate()) {
-                                print(_formKey.currentState.value);
+                                // print(_formKey.currentState.value);
+                                _login(_formKey.currentState.value);
                               } else {
-                                setState(() {
-                                  // ignore: unnecessary_statements
-                                  AutovalidateMode.onUserInteraction;
-                                });
+                                print("validation failed");
+                                // print(_formKey.currentState.value);
                               }
                             },
                             child: Text('ເຂົ້າລະບົບ',
