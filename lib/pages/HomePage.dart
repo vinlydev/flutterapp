@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: Menu(),
       appBar: AppBar(
-        title: const Logos(),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.exit_to_app),

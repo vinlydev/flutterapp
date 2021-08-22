@@ -16,17 +16,24 @@ class _MenuState extends State<Menu> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
+            // DrawerHeader(
+            //   decoration: BoxDecoration(
+            //     color: Colors.blue,
+            //   ),
+            //   child: Text(
+            //     'ເມນູຫຼັກ',
+            //     style: TextStyle(
+            //       color: Colors.white,
+            //       fontSize: 24,
+            //     ),
+            //   ),
+            // ),
+            UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/img/kg.png'),
               ),
-              child: Text(
-                'ເມນູຫຼັກ',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
+              accountEmail: Text('vinly@gmail.com'),
+              accountName: Text('Vinly'),
             ),
             ListTile(
               leading: Icon(Icons.home),
