@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,7 +62,10 @@ class _MenuState extends State<Menu> {
                 IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: () {
-                    Navigator.pushNamed(context, 'homestack/editprofile');
+                    Navigator.pushNamed(context, 'homestack/editprofile',
+                        arguments: {
+                          'name': profile['name'],
+                        });
                   },
                 )
               ],

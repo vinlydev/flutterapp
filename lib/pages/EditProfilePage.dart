@@ -31,32 +31,35 @@ class _EditProfilePageState extends State<EditProfilePage> {
     setState(() {
       isLoading = true;
     });
+
+    //get token
+    var tokenString = prefs.getString('token');
+    var token = convert.jsonDecode(tokenString);
+
     // print(values);
-    var url = Uri.parse('https://api.codingthailand.com/api/login');
+    var url = Uri.parse('https://api.codingthailand.com/api/editprofile');
     // var abody =
     var response = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${token['access_token']}'
+        },
         body: convert.jsonEncode({
-          'email': values['email'],
-          'password': values['password'],
+          'name': values['name'],
         }));
     // print(convert.jsonDecode(abody));
     if (response.statusCode == 200) {
       setState(() {
         isLoading = false;
       });
-      // var token = convert.jsonDecode(response.body);
-      // print(response.body);
 
-      //save token to prefe
-      await prefs.setString('token', response.body);
-
-      //get profile
-      await _getProfile();
+      //save profile to prefs
+      var profile = response.body;
+      await _saveProfile(profile);
 
       //go to homepage
       Navigator.pushNamedAndRemoveUntil(
-          context, '/homestack', (Route<dynamic> route) => false);
+          context, 'homestack/home', (Route<dynamic> route) => false);
     } else {
       setState(() {
         isLoading = false;
@@ -77,37 +80,28 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
-  Future<void> _getProfile() async {
-    //get token from prefs
-    var tokenString = prefs.getString('token');
-    var token = convert.jsonDecode(tokenString);
-    print(token['access_token']);
-
-    //http get profile
-    var url = Uri.parse('https://api.codingthailand.com/api/profile');
-    var response = await http.get(url,
-        headers: {'Authorization': 'Bearer ${token['access_token']}'});
-    print(response.body);
-
+  Future<void> _saveProfile(String profile) async {
     //save user profile to prefs
-    var profile = convert.jsonDecode(response.body);
+    var profileUpdate = convert.jsonDecode(profile);
     await prefs.setString(
-        'profile', convert.jsonEncode(profile['data']['user']));
+        'profile', convert.jsonEncode(profileUpdate['data']['user']));
   }
 
   @override
   Widget build(BuildContext context) {
+    Map user = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(title: Text('ແກ້ໄຂຂໍ້ມູນສ່ວນຕົວ')),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.fromLTRB(10, 40, 10, 10),
               child: FormBuilder(
                 key: _formKey,
                 initialValue: {
-                  'name': 'John',
+                  'name': user['name'],
                 },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
@@ -125,7 +119,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20))),
-                          errorStyle: TextStyle(color: Colors.white)),
+                          errorStyle: TextStyle(color: Colors.red)),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(context,
                             errorText: 'ກະລຸນາໃສ່ ຊື່ ແລະ ນາມສະກຸນ'),
@@ -147,9 +141,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               // print(_formKey.currentState.value);
                             }
                           },
-                          child: Text('ບັນທຶກ',
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.blueGrey)),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                isLoading == true
+                                    ? CircularProgressIndicator()
+                                    : Text(''),
+                                Text('ແກ້ໄຂ',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.blueGrey)),
+                              ]),
                           padding: EdgeInsets.all(30),
                           color: Colors.tealAccent,
                           shape: RoundedRectangleBorder(
