@@ -107,7 +107,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: FormBuilder(
                 key: _formKey,
                 initialValue: {
-                  'name': '',
+                  'name': 'John',
                 },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert' as convert;
@@ -59,7 +61,9 @@ class _MenuState extends State<Menu> {
               otherAccountsPictures: <Widget>[
                 IconButton(
                   icon: Icon(Icons.edit),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'homestack/editprofile');
+                  },
                 )
               ],
             ),

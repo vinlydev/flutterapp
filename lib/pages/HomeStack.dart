@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/pages/AboutPage.dart';
 import 'package:flutterapp/pages/ContactPage.dart';
+import 'package:flutterapp/pages/EditProfilePage.dart';
 import 'package:flutterapp/pages/HomePage.dart';
 import 'package:flutterapp/pages/RoomPage.dart';
 
@@ -41,8 +42,8 @@ class _HomeStackState extends State<HomeStack> {
             builder = (BuildContext context) => RoomPage();
             break;
 
-          case 'homestack/room':
-            builder = (BuildContext context) => RoomPage();
+          case 'homestack/editprofile':
+            builder = (BuildContext context) => EditProfilePage();
             break;
 
           default:
