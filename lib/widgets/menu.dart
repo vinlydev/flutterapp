@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 class Menu extends StatefulWidget {
   Menu({Key key}) : super(key: key);
@@ -8,6 +11,24 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  Map<String, dynamic> profile = {'email': '', 'name': '', 'role': ''};
+
+  _getProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var profileString = prefs.getString('profile');
+    if (profileString != null) {
+      setState(() {
+        profile = convert.jsonDecode(profileString);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getProfile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,8 +53,15 @@ class _MenuState extends State<Menu> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/img/kg.png'),
               ),
-              accountEmail: Text('vinly@gmail.com'),
-              accountName: Text('Vinly'),
+              accountEmail:
+                  Text('${profile['email']} role: ${profile['role']} '),
+              accountName: Text('${profile['name']}'),
+              otherAccountsPictures: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {},
+                )
+              ],
             ),
             ListTile(
               leading: Icon(Icons.home),
