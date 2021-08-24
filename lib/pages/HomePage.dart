@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/widgets/Logo.dart';
 import 'package:flutterapp/widgets/menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
