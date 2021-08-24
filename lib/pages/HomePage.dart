@@ -47,11 +47,11 @@ class _HomePageState extends State<HomePage> {
                 converter: (store) => store.state.profileState.profile,
                 builder: (context, profile) {
                   return Expanded(
-                      flex: 1,
-                      child: Center(
+                    flex: 1,
+                    child: Center(
                         child: Text(
-                            'ຍິນດີຕອນຮັບທ່ານ ${profile['name']} Email: ${profile['email']}'),
-                      ));
+                            'ຍິນດີຕອນຮັບທ່ານ ${profile['name']} Email: ${profile['email']}')),
+                  );
                 },
               ),
               Expanded(
