@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutterapp/redux/appReducer.dart';
 import 'package:flutterapp/widgets/menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,12 +42,18 @@ class _HomePageState extends State<HomePage> {
                 fit: BoxFit.cover),
           ),
           child: Column(
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Center(
-                    child: Text('ຍິນດີຕອນຮັບທ່ານ vinly Email: vinly@gmail.com'),
-                  )),
+            children: <Widget>[
+              StoreConnector<AppState, Map<String, dynamic>>(
+                converter: (store) => store.state.profileState.profile,
+                builder: (context, profile) {
+                  return Expanded(
+                      flex: 1,
+                      child: Center(
+                        child: Text(
+                            'ຍິນດີຕອນຮັບທ່ານ ${profile['name']} Email: ${profile['email']}'),
+                      ));
+                },
+              ),
               Expanded(
                 flex: 9,
                 child: GridView.count(
