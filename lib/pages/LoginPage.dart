@@ -88,12 +88,13 @@ class _LoginPageState extends State<LoginPage> {
     var url = Uri.parse('https://api.codingthailand.com/api/profile');
     var response = await http.get(url,
         headers: {'Authorization': 'Bearer ${token['access_token']}'});
-    print(response.body);
-
+    // print(response.body);
     //save user profile to prefs
     var profile = convert.jsonDecode(response.body);
     await prefs.setString(
         'profile', convert.jsonEncode(profile['data']['user']));
+
+    //call action
   }
 
   @override

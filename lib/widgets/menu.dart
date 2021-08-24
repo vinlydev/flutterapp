@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutterapp/redux/appReducer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert' as convert;
 
 class Menu extends StatefulWidget {
   Menu({Key key}) : super(key: key);
@@ -10,15 +11,15 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  Map<String, dynamic> profile = {'email': '', 'name': '', 'role': ''};
+  // Map<String, dynamic> profile = {'email': '', 'name': '', 'role': ''};
 
   _getProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var profileString = prefs.getString('profile');
     if (profileString != null) {
-      setState(() {
-        profile = convert.jsonDecode(profileString);
-      });
+      // setState(() {
+      //   profile = convert.jsonDecode(profileString);
+      // });
     }
   }
 
@@ -48,25 +49,32 @@ class _MenuState extends State<Menu> {
             //     ),
             //   ),
             // ),
-            UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/img/kg.png'),
-              ),
-              accountEmail:
-                  Text('${profile['email']} role: ${profile['role']} '),
-              accountName: Text('${profile['name']}'),
-              otherAccountsPictures: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'homestack/editprofile',
-                        arguments: {
-                          'name': profile['name'],
-                        });
-                  },
-                )
-              ],
+
+            StoreConnector<AppState, Map<String, dynamic>>(
+              converter: (store) => store.state.profileState.profile,
+              builder: (context, profile) {
+                return UserAccountsDrawerHeader(
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage: AssetImage('assets/img/kg.png'),
+                  ),
+                  accountEmail:
+                      Text('${profile['email']} role: ${profile['role']} '),
+                  accountName: Text('${profile['name']}'),
+                  otherAccountsPictures: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'homestack/editprofile',
+                            arguments: {
+                              'name': profile['name'],
+                            });
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
+
             ListTile(
               leading: Icon(Icons.home),
               title: Text('ໜ້າຫຼັກ'),
