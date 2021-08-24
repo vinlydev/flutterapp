@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutterapp/redux/appReducer.dart';
+import 'package:flutterapp/redux/profile/profileAction.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:flushbar/flushbar.dart';
@@ -95,6 +98,8 @@ class _LoginPageState extends State<LoginPage> {
         'profile', convert.jsonEncode(profile['data']['user']));
 
     //call action
+    final store = StoreProvider.of<AppState>(context);
+    store.dispatch(getProfileAction(profile['data']['user']));
   }
 
   @override
