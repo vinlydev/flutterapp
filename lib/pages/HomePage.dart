@@ -42,11 +42,12 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Expanded(
-                flex: 1,
-                child: Text('ຍິນດີຕອນຮັບ'),
-              ),
+                  flex: 1,
+                  child: Center(
+                    child: Text('ຍິນດີຕອນຮັບທ່ານ vinly Email: vinly@gmail.com'),
+                  )),
               Expanded(
-                flex: 1,
+                flex: 9,
                 child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.all(20),

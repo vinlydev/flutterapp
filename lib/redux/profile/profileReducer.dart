@@ -7,7 +7,7 @@ class ProfileState {
   ProfileState(
       {this.profile = const {
         'email': 'vinly@gmail.com',
-        'name': 'vinly',
+        'name': 'vinly Doe',
         'role': 'member'
       }});
 
