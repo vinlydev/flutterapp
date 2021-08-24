@@ -1,6 +1,3 @@
-import 'dart:ffi';
-import 'dart:ui';
-
 import 'package:flutterapp/redux/profile/profileReducer.dart';
 import 'package:meta/meta.dart';
 
