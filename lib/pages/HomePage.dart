@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print('home build');
     return Scaffold(
       drawer: Menu(),
       appBar: AppBar(
@@ -44,8 +45,10 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               StoreConnector<AppState, Map<String, dynamic>>(
+                distinct: true,
                 converter: (store) => store.state.profileState.profile,
                 builder: (context, profile) {
+                  print('connector build');
                   return Expanded(
                     flex: 1,
                     child: Center(

@@ -1,21 +1,20 @@
 import 'package:flutterapp/redux/profile/profileAction.dart';
 import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 
 @immutable
-class ProfileState {
+class ProfileState extends Equatable {
   final Map<String, dynamic> profile;
 
-  ProfileState({this.profile
-      // {this.profile = const {
-      //   'email': 'mary@gmail.com',
-      //   'name': 'Mary Jane',
-      //   'role': 'member'
-      // }}
-      });
+  ProfileState({this.profile = const {'email': '', 'name': '', 'role': ''}});
 
   ProfileState copyWith({Map<String, dynamic> profile}) {
     return ProfileState(profile: profile ?? this.profile);
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [profile];
 }
 
 profileReducer(ProfileState state, dynamic action) {
