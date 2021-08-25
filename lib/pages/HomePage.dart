@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutterapp/redux/appReducer.dart';
+import 'package:flutterapp/redux/profile/profileReducer.dart';
 import 'package:flutterapp/widgets/menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,16 +45,16 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Column(
             children: <Widget>[
-              StoreConnector<AppState, Map<String, dynamic>>(
+              StoreConnector<AppState, ProfileState>(
                 distinct: true,
-                converter: (store) => store.state.profileState.profile,
-                builder: (context, profile) {
+                converter: (store) => store.state.profileState,
+                builder: (context, profileState) {
                   print('connector build');
                   return Expanded(
                     flex: 1,
                     child: Center(
                         child: Text(
-                            'ຍິນດີຕອນຮັບທ່ານ ${profile['name']} Email: ${profile['email']}')),
+                            'ຍິນດີຕອນຮັບທ່ານ ${profileState.profile['name']}')),
                   );
                 },
               ),
