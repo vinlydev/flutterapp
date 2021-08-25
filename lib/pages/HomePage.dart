@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print('home build');
+    // print('home build');
     return Scaffold(
       drawer: Menu(),
       appBar: AppBar(
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                 distinct: true,
                 converter: (store) => store.state.profileState,
                 builder: (context, profileState) {
-                  print('connector build');
+                  // print('connector build');
                   return Expanded(
                     flex: 1,
                     child: Center(
