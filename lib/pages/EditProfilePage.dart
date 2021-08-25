@@ -61,8 +61,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       await _saveProfile(profile);
 
       //go to homepage
-      // Navigator.pushNamedAndRemoveUntil(
-      //     context, 'homestack/home', (Route<dynamic> route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, 'homestack/home', (Route<dynamic> route) => false);
     } else {
       setState(() {
         isLoading = false;
