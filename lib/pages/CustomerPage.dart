@@ -86,6 +86,7 @@ class _CustomerPageState extends State<CustomerPage> {
               // Navigator.pop(context);
               if (_formKey.currentState.validate()) {
                 print(_formKey.currentState.value);
+                Navigator.of(context).pop();
               } else {
                 setState(() {
                   _autovalidate = true;
