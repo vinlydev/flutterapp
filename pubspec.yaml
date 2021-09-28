@@ -41,6 +41,7 @@ dependencies:
   redux_thunk: ^0.4.0
   sqflite: ^2.0.0+4
   rflutter_alert: ^2.0.4 
+  camera: ^0.9.4
 
 dev_dependencies:
   flutter_test:
