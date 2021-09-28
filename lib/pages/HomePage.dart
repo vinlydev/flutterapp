@@ -170,6 +170,31 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white70,
                       ),
                     ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed('/customer');
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.person,
+                              size: 80,
+                              color: Colors.blueGrey,
+                            ),
+                            Text(
+                              'ຫ້ອງພັກ ${fromAbout ?? ''}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        color: Colors.white70,
+                      ),
+                    ),
                   ],
                 ),
               ),

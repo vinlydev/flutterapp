@@ -39,6 +39,7 @@ dependencies:
   flutter_redux: ^0.8.2
   equatable: ^2.0.3
   redux_thunk: ^0.4.0
+  sqflite: ^2.0.0+4
 
 dev_dependencies:
   flutter_test:
