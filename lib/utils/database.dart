@@ -20,7 +20,7 @@ class DBHelper {
         onCreate: (Database db, int version) async {
       // When creating the db, create the table
       await db.execute(
-          'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, phone INTEGER)');
+          'CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, phone TEXT)');
     });
     return db;
   }
