@@ -18,11 +18,21 @@ class _CustomerPageState extends State<CustomerPage> {
     _getCustomer();
   }
 
+  _insertForm() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('ລູກຄ້າ'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.person_add),
+              onPressed: () {
+                _insertForm();
+              },
+            )
+          ],
         ),
         body: ListView.separated(
             itemBuilder: (BuildContext context, int index) {

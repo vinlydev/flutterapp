@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.blueGrey,
                             ),
                             Text(
-                              'ຫ້ອງພັກ ${fromAbout ?? ''}',
+                              'ລູກຄ້າ ${fromAbout ?? ''}',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 20),
                             ),
