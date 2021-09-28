@@ -16,6 +16,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  // ignore: unused_field
   bool _autovalidate = false;
   bool isLoading = false;
 
@@ -185,9 +186,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               // ignore: deprecated_member_use
                               child: RaisedButton(
                                 onPressed: () {
-                                  _formKey.currentState.saveAndValidate();
                                   // print(_formKey.currentState.value);
-                                  if (_formKey.currentState.validate()) {
+                                  if (_formKey.currentState.saveAndValidate()) {
                                     // print(_formKey.currentState.value);
                                     _register(_formKey.currentState.value);
                                   } else {
