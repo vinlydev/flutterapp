@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutterapp/pages/CameraStack.dart';
 import 'package:flutterapp/pages/CustomerPage.dart';
 import 'package:flutterapp/pages/HomeStack.dart';
 import 'package:flutterapp/pages/LoginPage.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
             '/productstack': (context) => ProductStack(),
             '/newsstack': (context) => NewsStack(),
             '/customer': (context) => CustomerPage(),
+            '/camerastack': (context) => CameraStack(),
             // '/about': (context) => AboutPage(),
             // '/contact': (context) => ContactPage(),
           },
