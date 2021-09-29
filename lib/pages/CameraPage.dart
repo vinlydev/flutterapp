@@ -13,12 +13,12 @@ class _CameraPageState extends State<CameraPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Menu(),
-      appBar: AppBar(title: Text('camera')),
+      appBar: AppBar(title: Text('ຖ່າຍຮູບ')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('camera'),
+            Text('ກ້ອງຖ່າຍຮູບ'),
           ],
         ),
       ),
