@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/widgets/menu.dart';
 
 class CameraPage extends StatefulWidget {
   CameraPage({Key key}) : super(key: key);
@@ -11,6 +12,7 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Menu(),
       appBar: AppBar(title: Text('camera')),
       body: Center(
         child: Column(
