@@ -104,19 +104,26 @@ class _HomePageState extends State<HomePage> {
                       ),
                       color: Colors.white70,
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(Icons.camera, size: 80, color: Colors.blueGrey),
-                          Text(
-                            'ກ້ອງ',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed('/camerastack');
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.camera,
+                                size: 80, color: Colors.blueGrey),
+                            Text(
+                              'ກ້ອງ',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        color: Colors.white70,
                       ),
-                      color: Colors.white70,
                     ),
                     GestureDetector(
                       onTap: () async {
